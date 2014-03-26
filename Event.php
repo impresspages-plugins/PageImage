@@ -27,7 +27,7 @@ class Event {
     }
 
 
-    public static function ipPageRemoved($data)
+    public static function ipBeforePageRemoved($data)
     {
         $pageId = $data['pageId'];
         Model::unbindImages($pageId);
