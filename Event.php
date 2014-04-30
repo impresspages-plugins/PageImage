@@ -19,7 +19,10 @@ class Event {
 
     public static function ipPageUpdated($data)
     {
-        $pageId = $data['pageId'];
+        if (!isset($data['pageImage'])) {
+            return;
+        }
+        $pageId = $data['id'];
         if (empty($data['pageImage']) || !is_array($data['pageImage'])) {
             $data['pageImage'] = array();
         }
