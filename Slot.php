@@ -21,15 +21,22 @@ class Slot {
         $imageFiles = Service::pageImages();
         $images = array();
         foreach($imageFiles as $image) {
-            $transform = new \Ip\Transform\ImageFit(200, 200);
-            try {
-                $reflection = ipReflection($image, $transform);
-                if ($reflection) {
-                    $images[] = $reflection;
-                }
-            } catch (\Ip\Exception\ReflectionException $e ) {
-                //do nothing
+
+
+            $file = $image;
+            $options = array(
+                'type' => 'fit',
+                'width' => 200,
+                'height' => 200
+            );
+            $thumbnail = ipReflection($file, $options);
+            if (!$thumbnail) {
+                echo ipReflectionException();
+            } else {
+                $images[] = $thumbnail;
             }
+
+
         }
         $answer = ipView('view/slot.php', array('images' => $images))->render();
         return $answer;
