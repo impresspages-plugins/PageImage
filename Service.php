@@ -18,6 +18,9 @@ class Service {
     public static function pageImages($pageId = null)
     {
         if ($pageId === null) {
+            if (!ipContent()->getCurrentPage()) {
+                return array();
+            }
             $pageId = ipContent()->getCurrentPage()->getId();
         }
         $images = Model::getPageImages($pageId);
