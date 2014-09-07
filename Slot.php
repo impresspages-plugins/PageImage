@@ -33,7 +33,7 @@ class Slot {
             if (!$thumbnail) {
                 echo ipReflectionException();
             } else {
-                $images[] = $thumbnail;
+                $images[] = ipFileUrl($thumbnail);
             }
 
 
