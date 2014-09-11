@@ -19,10 +19,12 @@ class Event {
 
     public static function ipPageUpdated($data)
     {
-        if (!isset($data['pageImage'])) {
+        $pageId = $data['id'];
+        $pageImages = Model::getPageImages($pageId);
+        if (!isset($data['pageImage']) && empty($pageImages)) {
             return;
         }
-        $pageId = $data['id'];
+
         if (empty($data['pageImage']) || !is_array($data['pageImage'])) {
             $data['pageImage'] = array();
         }
