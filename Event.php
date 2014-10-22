@@ -19,6 +19,10 @@ class Event {
 
     public static function ipPageUpdated($data)
     {
+        if (ipRoute()->plugin() != 'Pages' || ipRoute()->action() != 'updatePage') {
+            return; //we want to handle only page updates that are made from within Pages section.
+        }
+
         $pageId = $data['id'];
         $pageImages = Model::getPageImages($pageId);
         if (!isset($data['pageImage']) && empty($pageImages)) {
@@ -29,6 +33,7 @@ class Event {
             $data['pageImage'] = array();
         }
         Model::updatePageImages($pageId, $data['pageImage']);
+
     }
 
 
